@@ -179,10 +179,6 @@ public class interfaceMethods implements interfaceMethod {
 			StringBuffer sql = new StringBuffer();
 			conn = DriverManager.getConnection(getproperties.get("url"),getproperties.get("user"),getproperties.get("password"));
 			sql.append(getproperties.get("update"));
-//			String sql = getproperties.get("selectAll");
-//			sql.append(getproperties.get("selectAll"));
-//			conn = DriverManager.getConnection(getproperties.get("url"),getproperties.get("user"),getproperties.get("password"));
-//			System.out.println(getproperties.get("selectAll"));
 			pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setString(1, plusCountStringChanger);
 			pstmt.setString(2, foodName);
@@ -216,10 +212,15 @@ public class interfaceMethods implements interfaceMethod {
 			}
 		}
 	}
-	
-	public int getAndPlusCount(HashMap<String, String> getproperties,Connection conn, String foodName) {
-		int beforeCount=0;
+	public int beforeCountPlus(int beforeCount) {
 		int plusCount = beforeCount+1;
+		return plusCount;
+	}
+	
+	
+	public int getBeforeCount(HashMap<String, String> getproperties,Connection conn, String foodName) {
+		
+		int beforeCount=0;
 		try {
 			conn = DriverManager.getConnection(getproperties.get("url"),getproperties.get("user"),getproperties.get("password"));
 			StringBuffer sql = new StringBuffer();
@@ -227,10 +228,10 @@ public class interfaceMethods implements interfaceMethod {
 			pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setString(1, foodName);
 			rs = pstmt.executeQuery();
-			while(rs.next()) {
+			if(rs.next()) {
 				beforeCount = (int)rs.getLong(1);
 				System.out.print(rs.getLong(1)+" ");
-				System.out.println(beforeCount);
+				System.out.println();
 			}
 		} catch(SQLException e) {
 			e.printStackTrace();
@@ -259,6 +260,6 @@ public class interfaceMethods implements interfaceMethod {
 //				}
 //			}
 		}
-		return plusCount;
+		return beforeCount;
 	}
 }

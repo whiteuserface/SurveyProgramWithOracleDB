@@ -8,7 +8,6 @@ public class MainMethods extends MainMethod{
 	abstractMethods am1 = (abstractMethods)am; //다운캐스팅
 	interfaceMethod im = new interfaceMethods();
 	interfaceMethods im1 = (interfaceMethods)im;
-	int plusCount;
 	HashMap<Integer,String> numAndNameCheck = new HashMap<>();
 	
 	public HashMap<Integer, String> getNumAndNameCheck() {
@@ -33,7 +32,8 @@ public class MainMethods extends MainMethod{
 	public void upCount(String foodName) {
 		am1.getProperties();
 		am1.connectDatabase(am1.getThisProperties());
-		plusCount = im1.getAndPlusCount(am1.getThisProperties(), im1.getConn(), foodName);
+		int beforeCount = im1.getBeforeCount(am1.getThisProperties(), im1.getConn(), foodName);
+		int plusCount = im1.beforeCountPlus(beforeCount);
 		im1.updateSource(am1.getThisProperties(), im1.getConn(),plusCount ,foodName);
 	}
 	
